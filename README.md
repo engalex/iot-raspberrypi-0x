@@ -19,6 +19,11 @@ Run with the following command:
 $ ./bin/iot-raspberrypi-0x
 ```
 
+Run the pre-built binary with the following command:
+```
+$ ./pre-built/iot-raspberrypi-0x-arch
+```
+
 The sample will send one message per second, for one minute. To visualise the output
 data, visit the [IBM Internet of Things Cloud Quickstart Portal](http://quickstart.internetofthings.ibmcloud.com/) and
 enter your MAC address.
