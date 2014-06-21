@@ -2,12 +2,14 @@
 #include "mqtt/async_client.h"
 #include <iostream>
 #include <string>
+#include <memory>
 
 class QuickstartClient {
 private:
 	const long TIMEOUT = 10000L;
 	std::string topic, myName;
-	mqtt::async_client* client;
+	// QuickstartClient has ownership of the client object.
+	std::unique_ptr<mqtt::async_client> client;
 	mqtt::itoken_ptr connectionToken;
 
 	class ClientCallback : public virtual mqtt::callback {

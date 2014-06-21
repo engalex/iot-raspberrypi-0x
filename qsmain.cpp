@@ -12,8 +12,10 @@
 #include <math.h>
 #include <thread>
 #include <chrono>
+#include <memory>
 #include "QuickstartClient.h"
 #include "MACAddress.h"
+#include "PiCpu.h"
 
 using namespace std;
 
@@ -21,24 +23,20 @@ using namespace std;
 
 int main() {
 	cout << "--- iot-raspberrypi-0x ---" << endl;
-	QuickstartClient* client = nullptr;
-	MACAddress* mac = nullptr;
-
-	mac = new MACAddress();
+	shared_ptr<MACAddress> mac(new MACAddress());
 	
 	if(mac) {
-		client = new QuickstartClient("iot-raspberrypi-0x-sample", mac->get());
+		shared_ptr<QuickstartClient> client(new QuickstartClient("iot-raspberrypi-0x-sample", mac->get()));
+		shared_ptr<PiCpu> cpu(new PiCpu());
 		cout << "Your MAC Address is: " << mac->get() << std::endl;
-		// We don't need the MACAddress variable 
-		// any more
-		delete mac;
-		mac = nullptr;
+		cout << "Network interface: " << mac->getInterfaceName() << std::endl;
 
 		if(client) {
 			// Run for 60 seconds
 			for(int i = 0; i < 60; i++) {
-				client->publish(10.0, 
-								20.0, 
+				cpu->update();
+				client->publish(cpu->getTemperature(), 
+								cpu->getLoad(), 
 								sin((i * 15) * (PI / 180)));
 				// Sleep for one second
 				std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -46,9 +44,6 @@ int main() {
 			}
 
 			cout << endl;
-
-			delete client;
-			client = nullptr;
 		} else {
 			cout << "Could not allocate enough memory for QuickstartClient." << endl;
 		}

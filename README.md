@@ -6,7 +6,7 @@ IBM Internet of Things Cloud 'Quickstart' service.
 * __Compiled with:__ g++ (GCC) 4.8.2 20131219 (prerelease)
 * __Tested on:__ Arch Linux ARM for Raspberry Pi.
 
-__The build operations can be executed as a non-root user.__
+__The build operations and program can be executed as a non-root user.__
 
 Build with the following commands:
 ```
@@ -30,7 +30,8 @@ enter your MAC address.
 ```
 --- iot-raspberrypi-0x ---
 Connecting...                   [ OK ]
-Your MAC Address is: 
+Your MAC Address is: 12345678990AB
+Network Interface: wlan0
 ............................................................
 Disconnecting...                [ OK ]
 --- Sample finished. ---

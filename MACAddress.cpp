@@ -19,17 +19,15 @@
 MACAddress::MACAddress(void) {
 	mac = "000000000000";
 	interfaceName = "none";
-
-	char* buffer = nullptr;
+	std::unique_ptr<char[]> buffer(new char[BUFFER_SIZE]);
 	int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	buffer = new char[BUFFER_SIZE];
 
 	if(sock != -1 && buffer) {
 		struct ifreq interfaceRecord;
 		struct ifconf interfaceConfig;
 
 		interfaceConfig.ifc_len = BUFFER_SIZE;
-		interfaceConfig.ifc_buf = buffer;
+		interfaceConfig.ifc_buf = buffer.get();
 
 		// Return a list of interfaces we can search
 		if(ioctl(sock, SIOCGIFCONF, &interfaceConfig) != -1) {
@@ -70,11 +68,6 @@ MACAddress::MACAddress(void) {
 		}
 	} else {
 		std::cout << "Cannot create socket." << std::endl;
-	}
-
-	if(buffer) {
-		delete buffer;
-		buffer = nullptr;
 	}
 }
 
