@@ -17,8 +17,9 @@
 // @param deviceName 	- The name you wish to provide the service as an identifier.
 // @param macAddress	- The MAC Address you wish to provide the service.
 QuickstartClient::QuickstartClient(std::string deviceName, std::string macAddress) {
-	client = std::unique_ptr<mqtt::async_client>(new mqtt::async_client("messaging.quickstart.internetofthings.ibmcloud.com:1883", "quickstart:" + macAddress));
-	topic = std::string("iot-1/d/" + macAddress + "/evt/rpi-quickstart/json");
+	client = std::unique_ptr<mqtt::async_client>(new mqtt::async_client("quickstart.messaging.internetofthings.ibmcloud.com:1883", 
+																		"d:quickstart:iotsample-raspberrypi:" + macAddress));
+	topic = std::string("iot-2/evt/status/fmt/json");
 	myName = deviceName;
 
 	if(client) {
