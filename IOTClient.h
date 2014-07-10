@@ -9,16 +9,28 @@
  *    Niall Frederick Weedon - Initial Contribution
  *******************************************************************************/ 
 #pragma once
- 
-#include "IOTClient.h"
+
+extern "C" {
+	#include "mqtt/MQTTAsync.h"
+	#include "mqtt/MQTTClientPersistence.h"
+}
+
+#include <string>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
-class QuickstartClient : public IOTClient {
-private:
-	string myName;
-public:
-	QuickstartClient(string organizationId, string macAddress);
-	~QuickstartClient();
-	void publish(double cpuTemperature, double cpuLoad, double sine);
+class IOTClient {
+	private:
+		MQTTAsync_connectOptions opts;
+	protected:
+		MQTTAsync client;
+		static bool connected;
+		static void connectionLost(void* context, char* cause);
+		static void onConnect(void* context, MQTTAsync_successData* response);
+	public:
+		IOTClient(string organizationId, string macAddress);
+		~IOTClient();
+		void publish(string topic, string payload);
 };

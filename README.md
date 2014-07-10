@@ -14,14 +14,15 @@ $ cd <directory>
 $ make && . configure.sh
 ```
 
+####Quickstart Service
 Run with the following command:
 ```
-$ ./bin/iot-raspberrypi-0x
+$ ./bin/iot-raspberrypi-0x -q
 ```
 
 Run the pre-built binary with the following command:
 ```
-$ ./pre-built/iot-raspberrypi-0x-arch
+$ ./pre-built/iot-raspberrypi-0x-arch -q
 ```
 
 The sample will send one message per second, for one minute. To visualise the output
@@ -37,10 +38,17 @@ Disconnecting...                [ OK ]
 --- Sample finished. ---
 ```
 
+####Beta Service
+The IoT Cloud Beta Service implementation is a work-in-progress. Stay tuned!
+
+Run with the following command:
+```
+$ ./bin/iot-raspberrypi-0x
+```
+
 __Note:__ This is not a fork of ibm-messaging/iot-raspberrypi repository due to a large number of differences in 
 source material. However, this repository will produce similar results.
 
 ####Libraries
-The required libraries (libpaho-mqtt3a and libmqttpp) are copied to ~/iot-raspberrypi-0x/lib
-* [libpaho-mqtt3a](http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.c.git/) - Paho C Library for MQTT
-* [libmqttpp](http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.cpp.git/): C++ Wrapper for Paho C Library
+The required library, libpaho-mqtt3as is copied to ~/iot-raspberrypi-0x/lib
+* [libpaho-mqtt3a](http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.c.git/) - Paho C Library for MQTT (Asynchronous and Secure)
